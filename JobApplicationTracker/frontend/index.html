@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JobTrack - Real-Time Job Application Tracker</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="bg-light">
+
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg bg-white border-bottom py-3">
+    <div class="container">
+      <a class="navbar-brand fw-bold text-primary d-flex items-center gap-2" href="index.html">
+        <i class="bi bi-briefcase-fill"></i> JobTrack
+      </a>
+      <div class="ms-auto d-flex gap-2">
+        <a href="login.html" class="btn btn-outline-secondary btn-sm px-3 fw-semibold">Login</a>
+        <a href="register.html" class="btn btn-primary btn-sm px-3 fw-semibold">Get Started</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <header class="py-5 text-center container my-5">
+    <div class="row py-lg-4">
+      <div class="col-lg-8 col-md-10 mx-auto">
+        <span class="badge bg-primary-subtle text-primary border border-primary-subtle mb-3 px-3 py-2 rounded-pill">
+          <i class="bi bi-lightning-charge-fill"></i> Real-Time Status & Document Pipelines
+        </span>
+        <h1 class="fw-bold display-5 text-slate-900 mb-3">
+          Track Job Applications with Complete Clarity
+        </h1>
+        <p class="lead text-secondary mb-4 fs-6">
+          Record applications sent to employers, monitor status progression live, log mandatory On Hold reasons, attach resumes, and receive instant email notifications when status changes occur.
+        </p>
+        <div class="d-flex justify-content-center gap-3">
+          <a href="login.html" class="btn btn-primary px-4 py-2 fw-semibold">Launch Dashboard</a>
+          <a href="register.html" class="btn btn-outline-secondary px-4 py-2 fw-semibold">Register Free</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Feature Grid -->
+  <section class="container py-5">
+    <div class="row g-4">
+      <div class="col-md-4">
+        <div class="card h-100 p-4 border stat-card">
+          <div class="text-primary fs-3 mb-2"><i class="bi bi-bar-chart-fill"></i></div>
+          <h5 class="fw-bold text-dark">Real-Time Dashboard</h5>
+          <p class="text-muted small">Instant pipeline metrics, Chart.js status distribution, and velocity tracking powered by WebSockets.</p>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card h-100 p-4 border stat-card">
+          <div class="text-warning fs-3 mb-2"><i class="bi bi-pause-circle-fill"></i></div>
+          <h5 class="fw-bold text-dark">On Hold Intelligence</h5>
+          <p class="text-muted small">Mandatory reason tracking for delayed hiring processes, budget freezes, and headcount realignments.</p>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card h-100 p-4 border stat-card">
+          <div class="text-success fs-3 mb-2"><i class="bi bi-envelope-check-fill"></i></div>
+          <h5 class="fw-bold text-dark">Automated Email Alerts</h5>
+          <p class="text-muted small">Instant notifications when selected for offers or rejected, plus advance scheduled interview reminders.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-white border-top py-4 text-center text-muted small mt-auto">
+    <div class="container">
+      © 2026 JobTrack. Real-Time Job Application Tracker Website.
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,6 @@
+{
+  "name": "JobTrack - Real-Time Job Application Tracker",
+  "description": "Track job applications, company details, interview pipelines, On Hold reasons, resume attachments, and real-time status notifications.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

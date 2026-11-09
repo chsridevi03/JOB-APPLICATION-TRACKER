@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Applications - JobTrack</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<div class="d-flex">
+  <!-- Sidebar -->
+  <aside class="sidebar p-3 d-flex flex-col flex-shrink-0">
+    <a href="dashboard.html" class="d-flex align-items-center mb-4 text-decoration-none text-primary fs-5 fw-bold px-2">
+      <i class="bi bi-briefcase-fill me-2"></i> JobTrack
+    </a>
+    <ul class="nav flex-column mb-auto">
+      <li class="nav-item">
+        <a href="dashboard.html" class="nav-link">
+          <i class="bi bi-speedometer2"></i> Dashboard
+        </a>
+      </li>
+      <li class="nav-item">
+        <a href="applications.html" class="nav-link active">
+          <i class="bi bi-file-earmark-text"></i> Applications
+        </a>
+      </li>
+      <li class="nav-item">
+        <a href="on_hold.html" class="nav-link">
+          <i class="bi bi-pause-circle text-warning"></i> On Hold
+        </a>
+      </li>
+      <li class="nav-item">
+        <a href="companies.html" class="nav-link">
+          <i class="bi bi-building"></i> Companies
+        </a>
+      </li>
+      <li class="nav-item">
+        <a href="profile.html" class="nav-link">
+          <i class="bi bi-person-gear"></i> Profile & Alerts
+        </a>
+      </li>
+    </ul>
+    <hr>
+    <div class="px-2">
+      <button onclick="Auth.clear(); window.location.href='login.html'" class="btn btn-sm btn-outline-danger w-100">
+        <i class="bi bi-box-arrow-right"></i> Logout
+      </button>
+    </div>
+  </aside>
+
+  <!-- Main View -->
+  <main class="flex-grow-1 p-4 overflow-auto" style="height: 100vh;">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+      <div>
+        <h3 class="fw-bold text-dark mb-0">Job Applications</h3>
+        <p class="text-muted small mb-0">Manage applications, status changes, and attached documents</p>
+      </div>
+      <button class="btn btn-primary btn-sm px-3 fw-semibold" data-bs-toggle="modal" data-bs-target="#addAppModal">
+        <i class="bi bi-plus-lg me-1"></i> Add Application
+      </button>
+    </div>
+
+    <!-- Filter Bar -->
+    <div class="stat-card p-3 mb-4">
+      <div class="row g-2 align-items-center">
+        <div class="col-md-4">
+          <div class="input-group input-group-sm">
+            <span class="input-group-text bg-white"><i class="bi bi-search"></i></span>
+            <input type="text" id="searchInput" class="form-control" placeholder="Search position or company...">
+          </div>
+        </div>
+        <div class="col-md-2">
+          <select id="statusFilter" class="form-select form-select-sm">
+            <option value="all">All Statuses</option>
+            <option value="Applied">Applied</option>
+            <option value="Interview">Interview</option>
+            <option value="Selected">Selected</option>
+            <option value="Rejected">Rejected</option>
+            <option value="On Hold">On Hold</option>
+          </select>
+        </div>
+        <div class="col-md-3">
+          <select id="companyFilter" class="form-select form-select-sm">
+            <option value="all">All Companies</option>
+          </select>
+        </div>
+        <div class="col-md-2">
+          <select id="sortFilter" class="form-select form-select-sm">
+            <option value="newest">Newest First</option>
+            <option value="oldest">Oldest First</option>
+          </select>
+        </div>
+        <div class="col-md-1">
+          <button id="clearFiltersBtn" class="btn btn-outline-secondary btn-sm w-100">Reset</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Table -->
+    <div class="stat-card">
+      <div class="table-responsive">
+        <table class="table table-hover align-middle mb-0 app-table">
+          <thead>
+            <tr>
+              <th>Job Position & Company</th>
+              <th>Applied Date</th>
+              <th>Location</th>
+              <th>Salary</th>
+              <th>Status</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="appsTableBody">
+            <tr><td colspan="6" class="text-center text-muted small py-4">Loading applications...</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </main>
+</div>
+
+<!-- Modal: Add Application -->
+<div class="modal fade" id="addAppModal" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title fs-6 fw-bold">New Job Application</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <form id="addAppForm">
+        <div class="modal-body small">
+          <div class="mb-3">
+            <label class="form-label fw-semibold">Company *</label>
+            <select id="appCompanySelect" class="form-select form-select-sm" required></select>
+          </div>
+          <div class="mb-3">
+            <label class="form-label fw-semibold">Job Position *</label>
+            <input type="text" id="appPosition" class="form-control form-control-sm" required placeholder="e.g. Senior Frontend Engineer">
+          </div>
+          <div class="row g-2 mb-3">
+            <div class="col-6">
+              <label class="form-label fw-semibold">Application Date *</label>
+              <input type="date" id="appDate" class="form-control form-control-sm" required>
+            </div>
+            <div class="col-6">
+              <label class="form-label fw-semibold">Interview Date (Optional)</label>
+              <input type="date" id="appInterviewDate" class="form-control form-control-sm">
+            </div>
+          </div>
+          <div class="row g-2 mb-3">
+            <div class="col-6">
+              <label class="form-label fw-semibold">Location</label>
+              <input type="text" id="appLocation" class="form-control form-control-sm" value="Remote">
+            </div>
+            <div class="col-6">
+              <label class="form-label fw-semibold">Job Type</label>
+              <select id="appType" class="form-select form-select-sm">
+                <option value="Full-time">Full-time</option>
+                <option value="Part-time">Part-time</option>
+                <option value="Internship">Internship</option>
+                <option value="Contract">Contract</option>
+              </select>
+            </div>
+          </div>
+          <div class="mb-3">
+            <label class="form-label fw-semibold">Salary</label>
+            <input type="text" id="appSalary" class="form-control form-control-sm" placeholder="e.g. $150,000 - $180,000">
+          </div>
+          <div class="mb-3">
+            <label class="form-label fw-semibold">Initial Status</label>
+            <select id="appStatus" class="form-select form-select-sm">
+              <option value="Applied">Applied (Blue)</option>
+              <option value="Interview">Interview (Purple)</option>
+              <option value="Selected">Selected (Green)</option>
+              <option value="Rejected">Rejected (Red)</option>
+              <option value="On Hold">On Hold (Orange)</option>
+            </select>
+          </div>
+          <div id="initialOnHoldGroup" class="mb-3 d-none">
+            <label class="form-label fw-semibold text-warning">On Hold Reason *</label>
+            <input type="text" id="appInitialReason" class="form-control form-control-sm" placeholder="Reason why application is on hold...">
+          </div>
+          <div class="mb-3">
+            <label class="form-label fw-semibold">Description & Notes</label>
+            <textarea id="appDesc" class="form-control form-control-sm" rows="3" placeholder="Job link or notes..."></textarea>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Cancel</button>
+          <button type="submit" class="btn btn-primary btn-sm">Create Application</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- Modal: Mandatory On Hold Reason -->
+<div class="modal fade" id="onHoldModal" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header bg-warning-subtle">
+        <h5 class="modal-title fs-6 fw-bold text-warning-emphasis">Reason for On Hold Status</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <form id="onHoldForm">
+        <div class="modal-body small">
+          <p class="text-muted">You must specify why this application is placed on hold before saving.</p>
+          <div class="mb-3">
+            <label class="form-label fw-semibold">Common Reasons:</label>
+            <div class="d-flex flex-column gap-1 mb-2">
+              <button type="button" class="btn btn-outline-secondary btn-sm text-start reason-preset">Company postponed recruitment.</button>
+              <button type="button" class="btn btn-outline-secondary btn-sm text-start reason-preset">Position temporarily unavailable.</button>
+              <button type="button" class="btn btn-outline-secondary btn-sm text-start reason-preset">Waiting for HR response.</button>
+              <button type="button" class="btn btn-outline-secondary btn-sm text-start reason-preset">Recruitment process delayed.</button>
+            </div>
+            <label class="form-label fw-semibold">Selected Reason *</label>
+            <textarea id="onHoldReasonInput" class="form-control form-control-sm" rows="3" required placeholder="Type reason..."></textarea>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Cancel</button>
+          <button type="submit" class="btn btn-warning btn-sm">Confirm On Hold</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="js/api.js"></script>
+<script>
+  let applicationsList = [];
+  let currentTargetAppId = null;
+
+  document.getElementById('appDate').value = new Date().toISOString().split('T')[0];
+
+  document.getElementById('appStatus').addEventListener('change', (e) => {
+    const group = document.getElementById('initialOnHoldGroup');
+    if (e.target.value === 'On Hold') {
+      group.classList.remove('d-none');
+    } else {
+      group.classList.add('d-none');
+    }
+  });
+
+  document.querySelectorAll('.reason-preset').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.getElementById('onHoldReasonInput').value = btn.textContent;
+    });
+  });
+
+  async function loadData() {
+    try {
+      const [apps, comps] = await Promise.all([
+        apiRequest('/applications'),
+        apiRequest('/companies')
+      ]);
+
+      applicationsList = apps;
+
+      // Populate company dropdowns
+      const compSelect = document.getElementById('appCompanySelect');
+      const compFilter = document.getElementById('companyFilter');
+      compSelect.innerHTML = '';
+      compFilter.innerHTML = '<option value="all">All Companies</option>';
+
+      comps.forEach(c => {
+        compSelect.innerHTML += `<option value="${c.id}">${c.company_name}</option>`;
+        compFilter.innerHTML += `<option value="${c.id}">${c.company_name}</option>`;
+      });
+
+      renderTable();
+    } catch (err) {
+      console.error(err);
+    }
+  }
+
+  function renderTable() {
+    const sTerm = document.getElementById('searchInput').value.toLowerCase();
+    const stFilter = document.getElementById('statusFilter').value;
+    const cpFilter = document.getElementById('companyFilter').value;
+    const sort = document.getElementById('sortFilter').value;
+
+    let filtered = applicationsList.filter(a => {
+      if (stFilter !== 'all' && a.status.toLowerCase() !== stFilter.toLowerCase()) return false;
+      if (cpFilter !== 'all' && String(a.company_id) !== cpFilter) return false;
+      if (sTerm) {
+        const match = a.job_position.toLowerCase().includes(sTerm) || 
+                      (a.company_name && a.company_name.toLowerCase().includes(sTerm));
+        if (!match) return false;
+      }
+      return true;
+    });
+
+    if (sort === 'oldest') {
+      filtered.sort((a,b) => new Date(a.application_date) - new Date(b.application_date));
+    } else {
+      filtered.sort((a,b) => new Date(b.application_date) - new Date(a.application_date));
+    }
+
+    const tbody = document.getElementById('appsTableBody');
+    tbody.innerHTML = '';
+
+    if (filtered.length === 0) {
+      tbody.innerHTML = '<tr><td colspan="6" class="text-center text-muted small py-4">No applications match your criteria.</td></tr>';
+      return;
+    }
+
+    filtered.forEach(app => {
+      let badgeClass = 'badge-applied';
+      if (app.status === 'Interview') badgeClass = 'badge-interview';
+      else if (app.status === 'Selected') badgeClass = 'badge-selected';
+      else if (app.status === 'Rejected') badgeClass = 'badge-rejected';
+      else if (app.status === 'On Hold') badgeClass = 'badge-on-hold';
+
+      const tr = document.createElement('tr');
+      tr.innerHTML = `
+        <td>
+          <div class="fw-semibold text-dark">${app.job_position}</div>
+          <div class="small text-muted"><i class="bi bi-building"></i> ${app.company_name}</div>
+        </td>
+        <td class="font-mono small">${app.application_date}</td>
+        <td class="small text-muted">${app.job_location || 'Remote'}</td>
+        <td class="small font-mono">${app.salary || '—'}</td>
+        <td>
+          <select class="form-select form-select-sm status-dropdown" data-id="${app.id}" style="width: 130px;">
+            <option value="Applied" ${app.status === 'Applied' ? 'selected' : ''}>Applied</option>
+            <option value="Interview" ${app.status === 'Interview' ? 'selected' : ''}>Interview</option>
+            <option value="Selected" ${app.status === 'Selected' ? 'selected' : ''}>Selected</option>
+            <option value="Rejected" ${app.status === 'Rejected' ? 'selected' : ''}>Rejected</option>
+            <option value="On Hold" ${app.status === 'On Hold' ? 'selected' : ''}>On Hold</option>
+          </select>
+          ${app.status === 'On Hold' && app.on_hold_reason ? `<div class="small text-warning-emphasis fst-italic mt-1" style="max-width: 180px;">"${app.on_hold_reason}"</div>` : ''}
+        </td>
+        <td>
+          <button class="btn btn-sm btn-outline-danger py-0 px-2 delete-btn" data-id="${app.id}"><i class="bi bi-trash"></i></button>
+        </td>
+      `;
+      tbody.appendChild(tr);
+    });
+
+    // Add event listeners for status change
+    document.querySelectorAll('.status-dropdown').forEach(sel => {
+      sel.addEventListener('change', (e) => {
+        const id = e.target.getAttribute('data-id');
+        const newStatus = e.target.value;
+        if (newStatus === 'On Hold') {
+          currentTargetAppId = id;
+          const modal = new bootstrap.Modal(document.getElementById('onHoldModal'));
+          modal.show();
+        } else {
+          updateAppStatus(id, newStatus);
+        }
+      });
+    });
+
+    document.querySelectorAll('.delete-btn').forEach(btn => {
+      btn.addEventListener('click', async (e) => {
+        const id = e.currentTarget.getAttribute('data-id');
+        if (confirm('Delete this application?')) {
+          await apiRequest(`/applications/${id}`, { method: 'DELETE' });
+          loadData();
+        }
+      });
+    });
+  }
+
+  async function updateAppStatus(id, status, reason = null) {
+    try {
+      await apiRequest(`/applications/${id}/status`, {
+        method: 'PATCH',
+        body: JSON.stringify({ status, reason })
+      });
+      loadData();
+    } catch (err) {
+      alert(err.message);
+    }
+  }
+
+  document.getElementById('onHoldForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const reason = document.getElementById('onHoldReasonInput').value;
+    if (currentTargetAppId && reason) {
+      await updateAppStatus(currentTargetAppId, 'On Hold', reason);
+      bootstrap.Modal.getInstance(document.getElementById('onHoldModal')).hide();
+    }
+  });
+
+  document.getElementById('addAppForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const payload = {
+      company_id: parseInt(document.getElementById('appCompanySelect').value),
+      job_position: document.getElementById('appPosition').value,
+      application_date: document.getElementById('appDate').value,
+      interview_date: document.getElementById('appInterviewDate').value || null,
+      job_location: document.getElementById('appLocation').value,
+      job_type: document.getElementById('appType').value,
+      salary: document.getElementById('appSalary').value,
+      status: document.getElementById('appStatus').value,
+      on_hold_reason: document.getElementById('appInitialReason').value || null,
+      job_description: document.getElementById('appDesc').value
+    };
+
+    try {
+      await apiRequest('/applications', {
+        method: 'POST',
+        body: JSON.stringify(payload)
+      });
+      bootstrap.Modal.getInstance(document.getElementById('addAppModal')).hide();
+      loadData();
+    } catch (err) {
+      alert(err.message);
+    }
+  });
+
+  // Filter triggers
+  ['searchInput', 'statusFilter', 'companyFilter', 'sortFilter'].forEach(id => {
+    document.getElementById(id).addEventListener('input', renderTable);
+  });
+
+  document.getElementById('clearFiltersBtn').addEventListener('click', () => {
+    document.getElementById('searchInput').value = '';
+    document.getElementById('statusFilter').value = 'all';
+    document.getElementById('companyFilter').value = 'all';
+    document.getElementById('sortFilter').value = 'newest';
+    renderTable();
+  });
+
+  onRealtimeEvent(() => loadData());
+  loadData();
+</script>
+</body>
+</html>

@@ -1,0 +1,93 @@
+/* JobTrack Custom Bootstrap 5 Theme Styles */
+:root {
+  --bs-primary: #2563eb;
+  --bs-primary-rgb: 37, 99, 235;
+  --status-applied: #2563eb;
+  --status-interview: #9333ea;
+  --status-selected: #16a34a;
+  --status-rejected: #dc2626;
+  --status-on-hold: #ea580c;
+}
+
+body {
+  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background-color: #f8fafc;
+  color: #0f172a;
+}
+
+.font-mono {
+  font-family: 'JetBrains Mono', monospace;
+}
+
+/* Sidebar navigation */
+.sidebar {
+  width: 250px;
+  min-height: 100vh;
+  background-color: #ffffff;
+  border-right: 1px solid #e2e8f0;
+}
+
+.sidebar .nav-link {
+  color: #475569;
+  font-weight: 500;
+  font-size: 0.875rem;
+  padding: 0.65rem 1rem;
+  border-radius: 0.5rem;
+  margin-bottom: 0.25rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.sidebar .nav-link:hover, .sidebar .nav-link.active {
+  color: #2563eb;
+  background-color: #eff6ff;
+  font-weight: 600;
+}
+
+/* Status Badges */
+.badge-applied {
+  background-color: #eff6ff;
+  color: #1d4ed8;
+  border: 1px solid #bfdbfe;
+}
+
+.badge-interview {
+  background-color: #faf5ff;
+  color: #7e22ce;
+  border: 1px solid #e9d5ff;
+}
+
+.badge-selected {
+  background-color: #f0fdf4;
+  color: #15803d;
+  border: 1px solid #bbf7d0;
+}
+
+.badge-rejected {
+  background-color: #fef2f2;
+  color: #b91c1c;
+  border: 1px solid #fecaca;
+}
+
+.badge-on-hold {
+  background-color: #fff7ed;
+  color: #c2410c;
+  border: 1px solid #fed7aa;
+}
+
+/* Card aesthetics */
+.stat-card {
+  border: 1px solid #e2e8f0;
+  border-radius: 0.75rem;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  background-color: #ffffff;
+}
+
+.app-table th {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #64748b;
+  font-weight: 600;
+}
