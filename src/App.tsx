@@ -98,20 +98,11 @@ export default function App() {
 
   // Check auth and connect WebSocket on mount
   useEffect(() => {
-    // If no user in local storage, initialize with demo user by default
     const existing = authStorage.getUser();
-    if (!existing) {
-      api.getCurrentUser()
-        .then((res) => {
-          setUser(res.user);
-          authStorage.setUser(res.user);
-        })
-        .catch(() => {
-          // keep null
-        });
+    if (existing) {
+      setUser(existing);
+      loadAppData();
     }
-
-    loadAppData();
 
     // Start WebSocket
     realtimeClient.connect();
@@ -277,19 +268,6 @@ export default function App() {
             onLogin={() => {
               setAuthMode('login');
               setIsAuthOpen(true);
-            }}
-            onDemoLogin={async () => {
-              try {
-                const res = await api.login('demo@jobtrack.io', 'password123');
-                authStorage.setToken(res.token);
-                authStorage.setUser(res.user);
-                setUser(res.user);
-                setCurrentTab('dashboard');
-                loadAppData();
-                showToast('Welcome back, Sarah Connor!', 'success');
-              } catch (err: any) {
-                alert(err.message || 'Demo login failed');
-              }
             }}
           />
         ) : (

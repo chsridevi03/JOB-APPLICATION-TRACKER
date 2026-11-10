@@ -66,22 +66,6 @@ export const AuthModal: React.FC<AuthModalProps> = ({
     }
   };
 
-  const handleDemoLogin = async () => {
-    try {
-      setIsSubmitting(true);
-      setError('');
-      const res = await api.login('demo@jobtrack.io', 'password123');
-      authStorage.setToken(res.token);
-      authStorage.setUser(res.user);
-      onSuccess(res.user);
-      onClose();
-    } catch (err: any) {
-      setError(err.message || 'Demo login failed');
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
-
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/50 backdrop-blur-xs p-4">
       <div className="bg-white rounded-xl shadow-2xl max-w-md w-full overflow-hidden border border-slate-200 animate-in fade-in zoom-in-95 duration-150">
@@ -95,26 +79,15 @@ export const AuthModal: React.FC<AuthModalProps> = ({
               <h2 className="text-base font-bold text-slate-900">
                 {mode === 'login' ? 'Sign In to JobTrack' : 'Create an Account'}
               </h2>
-              <p className="text-xs text-slate-500">Track and manage your career applications</p>
+              <p className="text-xs text-slate-500">
+                {mode === 'login'
+                  ? 'Access your tracker with any email and password'
+                  : 'Track and manage your career applications'}
+              </p>
             </div>
           </div>
           <button onClick={onClose} className="text-slate-400 hover:text-slate-600 p-1.5 rounded-lg">
             <X className="w-5 h-5" />
-          </button>
-        </div>
-
-        {/* 1-Click Demo Banner */}
-        <div className="bg-blue-50/70 border-b border-blue-100 px-6 py-3 flex items-center justify-between">
-          <div className="text-xs text-blue-900">
-            <span className="font-bold">Instant Demo Account</span>
-            <span className="block text-[11px] text-blue-700">Explore with pre-seeded jobs & documents</span>
-          </div>
-          <button
-            onClick={handleDemoLogin}
-            disabled={isSubmitting}
-            className="px-3 py-1 text-xs font-semibold bg-blue-600 hover:bg-blue-700 text-white rounded-lg shadow-2xs transition-colors shrink-0 disabled:opacity-50"
-          >
-            1-Click Sign In
           </button>
         </div>
 

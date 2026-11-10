@@ -15,13 +15,11 @@ import {
 interface LandingPageProps {
   onGetStarted: () => void;
   onLogin: () => void;
-  onDemoLogin: () => void;
 }
 
 export const LandingPage: React.FC<LandingPageProps> = ({
   onGetStarted,
   onLogin,
-  onDemoLogin,
 }) => {
   return (
     <div className="min-h-screen bg-slate-50 flex flex-col justify-between">
@@ -46,13 +44,13 @@ export const LandingPage: React.FC<LandingPageProps> = ({
               onClick={onLogin}
               className="px-4 py-2 text-xs font-semibold text-slate-700 hover:text-slate-900 rounded-lg transition-colors"
             >
-              Log In
+              Sign In
             </button>
             <button
-              onClick={onDemoLogin}
+              onClick={onGetStarted}
               className="px-4 py-2 text-xs font-semibold text-white bg-blue-600 hover:bg-blue-700 rounded-lg shadow-xs transition-colors"
             >
-              1-Click Demo Sign In
+              Create Account
             </button>
           </div>
         </div>
@@ -75,10 +73,10 @@ export const LandingPage: React.FC<LandingPageProps> = ({
 
         <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
           <button
-            onClick={onDemoLogin}
+            onClick={onLogin}
             className="px-6 py-3 text-xs font-bold text-white bg-blue-600 hover:bg-blue-700 rounded-xl shadow-md hover:shadow-lg transition-all flex items-center gap-2"
           >
-            <span>Explore Live Demo (Sarah Connor)</span>
+            <span>Sign In to Your Tracker</span>
             <ArrowRight className="w-4 h-4" />
           </button>
           <button
@@ -135,10 +133,10 @@ export const LandingPage: React.FC<LandingPageProps> = ({
             </p>
           </div>
           <button
-            onClick={onDemoLogin}
+            onClick={onLogin}
             className="px-5 py-2.5 bg-slate-900 hover:bg-slate-800 text-white text-xs font-semibold rounded-xl whitespace-nowrap shrink-0 transition-colors"
           >
-            Launch Tracker
+            Sign In to Dashboard
           </button>
         </div>
       </main>

@@ -144,11 +144,9 @@ JobApplicationTracker/
 
 ---
 
-## 🔑 Demo Account Credentials
+## 🔑 Access With Any Email and Password
 
-For quick testing with pre-seeded companies, job applications, documents, and status history:
-- **Email:** `demo@jobtrack.io`
-- **Password:** `password123`
+You can sign in with **any email and password** of your choice (e.g. `user@gmail.com` / `password123`). The system automatically creates your account, provisions your workspace, and provides instant access without restrictions.
 
 You can also register a new account anytime on `register.html`.
 

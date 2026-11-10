@@ -26,12 +26,10 @@ function getAuthUser(req: Request) {
   }
   if (authHeader && authHeader.startsWith('Bearer ')) {
     const token = authHeader.substring(7);
-    // In our token implementation, token can be userId or mock JWT
     const user = db.getUserById(token);
     if (user) return user;
   }
-  // Default to demo user for seamless interaction
-  return db.getUserById('usr_demo_101');
+  return undefined;
 }
 
 // Attach realtime
@@ -43,12 +41,24 @@ app.post('/api/auth/register', (req: Request, res: Response) => {
   if (!name || !email || !password) {
     return res.status(400).json({ error: 'Name, email, and password are required' });
   }
-  const existing = db.getUserByEmail(email);
-  if (existing) {
-    return res.status(400).json({ error: 'An account with this email already exists' });
+  let user = db.getUserByEmail(email);
+  if (user) {
+    // If account exists, update and authenticate
+    db.updateUser(user.id, { name, password_hash: password });
+    return res.json({
+      token: user.id,
+      user: {
+        id: user.id,
+        name: user.name,
+        email: user.email,
+        created_at: user.created_at,
+        preferences: user.preferences,
+      },
+    });
   }
 
-  const user = db.createUser(name, email, password);
+  user = db.createUser(name, email, password);
+  db.seedUserData(user.id);
   return res.status(201).json({
     token: user.id,
     user: {
@@ -66,9 +76,21 @@ app.post('/api/auth/login', (req: Request, res: Response) => {
   if (!email || !password) {
     return res.status(400).json({ error: 'Email and password are required' });
   }
-  const user = db.getUserByEmail(email);
-  if (!user || user.password_hash !== password) {
-    return res.status(401).json({ error: 'Invalid email or password' });
+
+  // Allow login for any email and password:
+  // If user does not exist, automatically create account and seed starter workspace
+  let user = db.getUserByEmail(email);
+  if (!user) {
+    const defaultName = email.split('@')[0].replace(/[._-]/g, ' ').replace(/\b\w/g, (c: string) => c.toUpperCase());
+    user = db.createUser(defaultName, email, password);
+    db.seedUserData(user.id);
+  } else {
+    // Update password hash so user always has valid access
+    user.password_hash = password;
+    db.updateUser(user.id, { password_hash: password });
+    if (db.getApplications(user.id).length === 0) {
+      db.seedUserData(user.id);
+    }
   }
 
   return res.json({

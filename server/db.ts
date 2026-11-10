@@ -526,6 +526,134 @@ class Database {
     return user;
   }
 
+  seedUserData(userId: string) {
+    const existingCompanies = this.getCompanies(userId);
+    if (existingCompanies.length > 0) return;
+
+    const now = new Date();
+    const dateStr = (offsetDays: number) => {
+      const d = new Date(now.getTime() - offsetDays * 86400000);
+      return d.toISOString().split('T')[0];
+    };
+    const futureDateStr = (days: number) => {
+      const d = new Date(now.getTime() + days * 86400000);
+      return d.toISOString().split('T')[0];
+    };
+
+    const cStripe = this.createCompany(userId, {
+      company_name: 'Stripe',
+      website: 'https://stripe.com',
+      location: 'San Francisco, CA (Remote)',
+      contact_email: 'talent@stripe.com',
+      phone: '+1 (415) 555-0199',
+      description: 'Financial infrastructure platform for businesses.',
+    });
+
+    const cLinear = this.createCompany(userId, {
+      company_name: 'Linear',
+      website: 'https://linear.app',
+      location: 'Remote',
+      contact_email: 'jobs@linear.app',
+      phone: '+1 (650) 555-0120',
+      description: 'Issue tracking and project management for software teams.',
+    });
+
+    const cFigma = this.createCompany(userId, {
+      company_name: 'Figma',
+      website: 'https://figma.com',
+      location: 'San Francisco, CA',
+      contact_email: 'careers@figma.com',
+      phone: '+1 (415) 555-0144',
+      description: 'Collaborative interface design and prototyping tool.',
+    });
+
+    const cDatadog = this.createCompany(userId, {
+      company_name: 'Datadog',
+      website: 'https://datadoghq.com',
+      location: 'New York, NY',
+      contact_email: 'recruiting@datadoghq.com',
+      phone: '+1 (212) 555-0182',
+      description: 'Cloud monitoring and observability service.',
+    });
+
+    const cAirbnb = this.createCompany(userId, {
+      company_name: 'Airbnb',
+      website: 'https://airbnb.com',
+      location: 'San Francisco, CA',
+      contact_email: 'talent@airbnb.com',
+      phone: '+1 (415) 555-0112',
+      description: 'Global online marketplace for short-term stays.',
+    });
+
+    this.createApplication(userId, {
+      company_id: cStripe.id,
+      job_position: 'Senior Frontend Engineer',
+      application_date: dateStr(28),
+      interview_date: futureDateStr(3),
+      job_description: 'Lead checkout UI performance and design system components in React and TypeScript.',
+      job_location: 'San Francisco, CA (Remote)',
+      job_type: 'Full-time',
+      salary: '$180,000 - $210,000',
+      status: 'Interview',
+    });
+
+    this.createApplication(userId, {
+      company_id: cLinear.id,
+      job_position: 'Full-Stack Product Engineer',
+      application_date: dateStr(24),
+      job_description: 'Build real-time synchronization features, offline caching, and desktop client modules.',
+      job_location: 'Remote',
+      job_type: 'Full-time',
+      salary: '$175,000 - $200,000',
+      status: 'Selected',
+    });
+
+    this.createApplication(userId, {
+      company_id: cFigma.id,
+      job_position: 'Design Systems Architect',
+      application_date: dateStr(20),
+      job_description: 'Develop WebGL and canvas-based components and developer token bridges.',
+      job_location: 'San Francisco, CA',
+      job_type: 'Full-time',
+      salary: '$190,000 - $225,000',
+      status: 'On Hold',
+      on_hold_reason: 'Company postponed recruitment due to Q4 headcount realignment.',
+    });
+
+    this.createApplication(userId, {
+      company_id: cDatadog.id,
+      job_position: 'Cloud Reliability Specialist',
+      application_date: dateStr(18),
+      job_description: 'Automate Kubernetes observability collectors and alerts for enterprise clusters.',
+      job_location: 'New York, NY',
+      job_type: 'Full-time',
+      salary: '$165,000 - $185,000',
+      status: 'Rejected',
+    });
+
+    this.createApplication(userId, {
+      company_id: cAirbnb.id,
+      job_position: 'Staff Web Platform Engineer',
+      application_date: dateStr(10),
+      job_description: 'Modernize server-side rendering pipelines and design accessible UI components.',
+      job_location: 'San Francisco, CA',
+      job_type: 'Full-time',
+      salary: '$200,000 - $230,000',
+      status: 'Applied',
+    });
+
+    const user = this.getUserById(userId);
+    if (user) {
+      this.addNotification({
+        user_id: userId,
+        recipient_email: user.email,
+        subject: 'Welcome to JobTrack! Your career tracker is ready',
+        body: `Hello ${user.name},\n\nYour JobTrack workspace is initialized with real-time status tracking, On Hold reasons, and resume vaults.`,
+        trigger_type: 'test',
+      });
+    }
+  }
+
   // Companies
   getCompanies(userId: string): Company[] {
     return this.data.companies.filter((c) => c.user_id === userId);
