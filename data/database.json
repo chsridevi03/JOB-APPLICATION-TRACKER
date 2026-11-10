@@ -25,6 +25,58 @@
         "email_interview_reminder": true,
         "interview_reminder_days": 2
       }
+    },
+    {
+      "id": "usr_1794286034776_mtyqu",
+      "name": "Test User",
+      "email": "newuser123@example.com",
+      "password_hash": "password123",
+      "created_at": "2026-11-10",
+      "preferences": {
+        "email_on_selected": true,
+        "email_on_rejected": true,
+        "email_interview_reminder": true,
+        "interview_reminder_days": 2
+      }
+    },
+    {
+      "id": "usr_1794286340758_bi36i",
+      "name": "Alex Rivers",
+      "email": "alex.rivers@example.com",
+      "password_hash": "newpassword456",
+      "created_at": "2026-11-10",
+      "preferences": {
+        "email_on_selected": true,
+        "email_on_rejected": true,
+        "email_interview_reminder": true,
+        "interview_reminder_days": 2
+      }
+    },
+    {
+      "id": "usr_1794286344982_411an",
+      "name": "Jordan Smith",
+      "email": "jordan.smith@example.com",
+      "password_hash": "mypassword123",
+      "created_at": "2026-11-10",
+      "preferences": {
+        "email_on_selected": true,
+        "email_on_rejected": true,
+        "email_interview_reminder": true,
+        "interview_reminder_days": 2
+      }
+    },
+    {
+      "id": "usr_1794286358222_4wxj5",
+      "name": "Aliasuser",
+      "email": "aliasuser@example.com",
+      "password_hash": "mypassword123",
+      "created_at": "2026-11-10",
+      "preferences": {
+        "email_on_selected": true,
+        "email_on_rejected": true,
+        "email_interview_reminder": true,
+        "interview_reminder_days": 2
+      }
     }
   ],
   "companies": [
@@ -141,6 +193,226 @@
     {
       "id": "cmp_1794285287477_qorx8",
       "user_id": "usr_1794284872704_d7aji",
+      "company_name": "Airbnb",
+      "website": "https://airbnb.com",
+      "location": "San Francisco, CA",
+      "contact_email": "talent@airbnb.com",
+      "phone": "+1 (415) 555-0112",
+      "description": "Global online marketplace for short-term stays.",
+      "created_at": "2026-11-10"
+    },
+    {
+      "id": "cmp_1794286034779_j9aui",
+      "user_id": "usr_1794286034776_mtyqu",
+      "company_name": "Stripe",
+      "website": "https://stripe.com",
+      "location": "San Francisco, CA (Remote)",
+      "contact_email": "talent@stripe.com",
+      "phone": "+1 (415) 555-0199",
+      "description": "Financial infrastructure platform for businesses.",
+      "created_at": "2026-11-10"
+    },
+    {
+      "id": "cmp_1794286034781_7cbu0",
+      "user_id": "usr_1794286034776_mtyqu",
+      "company_name": "Linear",
+      "website": "https://linear.app",
+      "location": "Remote",
+      "contact_email": "jobs@linear.app",
+      "phone": "+1 (650) 555-0120",
+      "description": "Issue tracking and project management for software teams.",
+      "created_at": "2026-11-10"
+    },
+    {
+      "id": "cmp_1794286034784_mg2wm",
+      "user_id": "usr_1794286034776_mtyqu",
+      "company_name": "Figma",
+      "website": "https://figma.com",
+      "location": "San Francisco, CA",
+      "contact_email": "careers@figma.com",
+      "phone": "+1 (415) 555-0144",
+      "description": "Collaborative interface design and prototyping tool.",
+      "created_at": "2026-11-10"
+    },
+    {
+      "id": "cmp_1794286034786_8bpbz",
+      "user_id": "usr_1794286034776_mtyqu",
+      "company_name": "Datadog",
+      "website": "https://datadoghq.com",
+      "location": "New York, NY",
+      "contact_email": "recruiting@datadoghq.com",
+      "phone": "+1 (212) 555-0182",
+      "description": "Cloud monitoring and observability service.",
+      "created_at": "2026-11-10"
+    },
+    {
+      "id": "cmp_1794286034789_tso6n",
+      "user_id": "usr_1794286034776_mtyqu",
+      "company_name": "Airbnb",
+      "website": "https://airbnb.com",
+      "location": "San Francisco, CA",
+      "contact_email": "talent@airbnb.com",
+      "phone": "+1 (415) 555-0112",
+      "description": "Global online marketplace for short-term stays.",
+      "created_at": "2026-11-10"
+    },
+    {
+      "id": "cmp_1794286340761_mgsh5",
+      "user_id": "usr_1794286340758_bi36i",
+      "company_name": "Stripe",
+      "website": "https://stripe.com",
+      "location": "San Francisco, CA (Remote)",
+      "contact_email": "talent@stripe.com",
+      "phone": "+1 (415) 555-0199",
+      "description": "Financial infrastructure platform for businesses.",
+      "created_at": "2026-11-10"
+    },
+    {
+      "id": "cmp_1794286340763_66fsq",
+      "user_id": "usr_1794286340758_bi36i",
+      "company_name": "Linear",
+      "website": "https://linear.app",
+      "location": "Remote",
+      "contact_email": "jobs@linear.app",
+      "phone": "+1 (650) 555-0120",
+      "description": "Issue tracking and project management for software teams.",
+      "created_at": "2026-11-10"
+    },
+    {
+      "id": "cmp_1794286340766_ovqtx",
+      "user_id": "usr_1794286340758_bi36i",
+      "company_name": "Figma",
+      "website": "https://figma.com",
+      "location": "San Francisco, CA",
+      "contact_email": "careers@figma.com",
+      "phone": "+1 (415) 555-0144",
+      "description": "Collaborative interface design and prototyping tool.",
+      "created_at": "2026-11-10"
+    },
+    {
+      "id": "cmp_1794286340768_aoudw",
+      "user_id": "usr_1794286340758_bi36i",
+      "company_name": "Datadog",
+      "website": "https://datadoghq.com",
+      "location": "New York, NY",
+      "contact_email": "recruiting@datadoghq.com",
+      "phone": "+1 (212) 555-0182",
+      "description": "Cloud monitoring and observability service.",
+      "created_at": "2026-11-10"
+    },
+    {
+      "id": "cmp_1794286340770_jpaio",
+      "user_id": "usr_1794286340758_bi36i",
+      "company_name": "Airbnb",
+      "website": "https://airbnb.com",
+      "location": "San Francisco, CA",
+      "contact_email": "talent@airbnb.com",
+      "phone": "+1 (415) 555-0112",
+      "description": "Global online marketplace for short-term stays.",
+      "created_at": "2026-11-10"
+    },
+    {
+      "id": "cmp_1794286344984_wdhf4",
+      "user_id": "usr_1794286344982_411an",
+      "company_name": "Stripe",
+      "website": "https://stripe.com",
+      "location": "San Francisco, CA (Remote)",
+      "contact_email": "talent@stripe.com",
+      "phone": "+1 (415) 555-0199",
+      "description": "Financial infrastructure platform for businesses.",
+      "created_at": "2026-11-10"
+    },
+    {
+      "id": "cmp_1794286344986_qihz9",
+      "user_id": "usr_1794286344982_411an",
+      "company_name": "Linear",
+      "website": "https://linear.app",
+      "location": "Remote",
+      "contact_email": "jobs@linear.app",
+      "phone": "+1 (650) 555-0120",
+      "description": "Issue tracking and project management for software teams.",
+      "created_at": "2026-11-10"
+    },
+    {
+      "id": "cmp_1794286344989_l5fn6",
+      "user_id": "usr_1794286344982_411an",
+      "company_name": "Figma",
+      "website": "https://figma.com",
+      "location": "San Francisco, CA",
+      "contact_email": "careers@figma.com",
+      "phone": "+1 (415) 555-0144",
+      "description": "Collaborative interface design and prototyping tool.",
+      "created_at": "2026-11-10"
+    },
+    {
+      "id": "cmp_1794286344991_wgx0z",
+      "user_id": "usr_1794286344982_411an",
+      "company_name": "Datadog",
+      "website": "https://datadoghq.com",
+      "location": "New York, NY",
+      "contact_email": "recruiting@datadoghq.com",
+      "phone": "+1 (212) 555-0182",
+      "description": "Cloud monitoring and observability service.",
+      "created_at": "2026-11-10"
+    },
+    {
+      "id": "cmp_1794286344993_zh2ff",
+      "user_id": "usr_1794286344982_411an",
+      "company_name": "Airbnb",
+      "website": "https://airbnb.com",
+      "location": "San Francisco, CA",
+      "contact_email": "talent@airbnb.com",
+      "phone": "+1 (415) 555-0112",
+      "description": "Global online marketplace for short-term stays.",
+      "created_at": "2026-11-10"
+    },
+    {
+      "id": "cmp_1794286358225_e635w",
+      "user_id": "usr_1794286358222_4wxj5",
+      "company_name": "Stripe",
+      "website": "https://stripe.com",
+      "location": "San Francisco, CA (Remote)",
+      "contact_email": "talent@stripe.com",
+      "phone": "+1 (415) 555-0199",
+      "description": "Financial infrastructure platform for businesses.",
+      "created_at": "2026-11-10"
+    },
+    {
+      "id": "cmp_1794286358227_bcv4o",
+      "user_id": "usr_1794286358222_4wxj5",
+      "company_name": "Linear",
+      "website": "https://linear.app",
+      "location": "Remote",
+      "contact_email": "jobs@linear.app",
+      "phone": "+1 (650) 555-0120",
+      "description": "Issue tracking and project management for software teams.",
+      "created_at": "2026-11-10"
+    },
+    {
+      "id": "cmp_1794286358230_b78nx",
+      "user_id": "usr_1794286358222_4wxj5",
+      "company_name": "Figma",
+      "website": "https://figma.com",
+      "location": "San Francisco, CA",
+      "contact_email": "careers@figma.com",
+      "phone": "+1 (415) 555-0144",
+      "description": "Collaborative interface design and prototyping tool.",
+      "created_at": "2026-11-10"
+    },
+    {
+      "id": "cmp_1794286358232_6oif0",
+      "user_id": "usr_1794286358222_4wxj5",
+      "company_name": "Datadog",
+      "website": "https://datadoghq.com",
+      "location": "New York, NY",
+      "contact_email": "recruiting@datadoghq.com",
+      "phone": "+1 (212) 555-0182",
+      "description": "Cloud monitoring and observability service.",
+      "created_at": "2026-11-10"
+    },
+    {
+      "id": "cmp_1794286358234_wmzc0",
+      "user_id": "usr_1794286358222_4wxj5",
       "company_name": "Airbnb",
       "website": "https://airbnb.com",
       "location": "San Francisco, CA",
@@ -324,9 +596,457 @@
       "status": "Applied",
       "created_at": "2026-11-10",
       "updated_at": "2026-11-10"
+    },
+    {
+      "id": "app_1794286034792_rmtgl",
+      "user_id": "usr_1794286034776_mtyqu",
+      "company_id": "cmp_1794286034779_j9aui",
+      "job_position": "Senior Frontend Engineer",
+      "application_date": "2026-10-13",
+      "interview_date": "2026-11-13",
+      "job_description": "Lead checkout UI performance and design system components in React and TypeScript.",
+      "job_location": "San Francisco, CA (Remote)",
+      "job_type": "Full-time",
+      "salary": "$180,000 - $210,000",
+      "status": "Interview",
+      "created_at": "2026-11-10",
+      "updated_at": "2026-11-10"
+    },
+    {
+      "id": "app_1794286034796_vbfr2",
+      "user_id": "usr_1794286034776_mtyqu",
+      "company_id": "cmp_1794286034781_7cbu0",
+      "job_position": "Full-Stack Product Engineer",
+      "application_date": "2026-10-17",
+      "job_description": "Build real-time synchronization features, offline caching, and desktop client modules.",
+      "job_location": "Remote",
+      "job_type": "Full-time",
+      "salary": "$175,000 - $200,000",
+      "status": "Selected",
+      "created_at": "2026-11-10",
+      "updated_at": "2026-11-10"
+    },
+    {
+      "id": "app_1794286034801_jlmss",
+      "user_id": "usr_1794286034776_mtyqu",
+      "company_id": "cmp_1794286034784_mg2wm",
+      "job_position": "Design Systems Architect",
+      "application_date": "2026-10-21",
+      "job_description": "Develop WebGL and canvas-based components and developer token bridges.",
+      "job_location": "San Francisco, CA",
+      "job_type": "Full-time",
+      "salary": "$190,000 - $225,000",
+      "status": "On Hold",
+      "on_hold_reason": "Company postponed recruitment due to Q4 headcount realignment.",
+      "created_at": "2026-11-10",
+      "updated_at": "2026-11-10"
+    },
+    {
+      "id": "app_1794286034806_i9rf5",
+      "user_id": "usr_1794286034776_mtyqu",
+      "company_id": "cmp_1794286034786_8bpbz",
+      "job_position": "Cloud Reliability Specialist",
+      "application_date": "2026-10-23",
+      "job_description": "Automate Kubernetes observability collectors and alerts for enterprise clusters.",
+      "job_location": "New York, NY",
+      "job_type": "Full-time",
+      "salary": "$165,000 - $185,000",
+      "status": "Rejected",
+      "created_at": "2026-11-10",
+      "updated_at": "2026-11-10"
+    },
+    {
+      "id": "app_1794286034810_jf5mt",
+      "user_id": "usr_1794286034776_mtyqu",
+      "company_id": "cmp_1794286034789_tso6n",
+      "job_position": "Staff Web Platform Engineer",
+      "application_date": "2026-10-31",
+      "job_description": "Modernize server-side rendering pipelines and design accessible UI components.",
+      "job_location": "San Francisco, CA",
+      "job_type": "Full-time",
+      "salary": "$200,000 - $230,000",
+      "status": "Applied",
+      "created_at": "2026-11-10",
+      "updated_at": "2026-11-10"
+    },
+    {
+      "id": "app_1794286340772_t1kyd",
+      "user_id": "usr_1794286340758_bi36i",
+      "company_id": "cmp_1794286340761_mgsh5",
+      "job_position": "Senior Frontend Engineer",
+      "application_date": "2026-10-13",
+      "interview_date": "2026-11-13",
+      "job_description": "Lead checkout UI performance and design system components in React and TypeScript.",
+      "job_location": "San Francisco, CA (Remote)",
+      "job_type": "Full-time",
+      "salary": "$180,000 - $210,000",
+      "status": "Interview",
+      "created_at": "2026-11-10",
+      "updated_at": "2026-11-10"
+    },
+    {
+      "id": "app_1794286340777_4eb2d",
+      "user_id": "usr_1794286340758_bi36i",
+      "company_id": "cmp_1794286340763_66fsq",
+      "job_position": "Full-Stack Product Engineer",
+      "application_date": "2026-10-17",
+      "job_description": "Build real-time synchronization features, offline caching, and desktop client modules.",
+      "job_location": "Remote",
+      "job_type": "Full-time",
+      "salary": "$175,000 - $200,000",
+      "status": "Selected",
+      "created_at": "2026-11-10",
+      "updated_at": "2026-11-10"
+    },
+    {
+      "id": "app_1794286340782_fk7li",
+      "user_id": "usr_1794286340758_bi36i",
+      "company_id": "cmp_1794286340766_ovqtx",
+      "job_position": "Design Systems Architect",
+      "application_date": "2026-10-21",
+      "job_description": "Develop WebGL and canvas-based components and developer token bridges.",
+      "job_location": "San Francisco, CA",
+      "job_type": "Full-time",
+      "salary": "$190,000 - $225,000",
+      "status": "On Hold",
+      "on_hold_reason": "Company postponed recruitment due to Q4 headcount realignment.",
+      "created_at": "2026-11-10",
+      "updated_at": "2026-11-10"
+    },
+    {
+      "id": "app_1794286340786_ijov6",
+      "user_id": "usr_1794286340758_bi36i",
+      "company_id": "cmp_1794286340768_aoudw",
+      "job_position": "Cloud Reliability Specialist",
+      "application_date": "2026-10-23",
+      "job_description": "Automate Kubernetes observability collectors and alerts for enterprise clusters.",
+      "job_location": "New York, NY",
+      "job_type": "Full-time",
+      "salary": "$165,000 - $185,000",
+      "status": "Rejected",
+      "created_at": "2026-11-10",
+      "updated_at": "2026-11-10"
+    },
+    {
+      "id": "app_1794286340791_91cbm",
+      "user_id": "usr_1794286340758_bi36i",
+      "company_id": "cmp_1794286340770_jpaio",
+      "job_position": "Staff Web Platform Engineer",
+      "application_date": "2026-10-31",
+      "job_description": "Modernize server-side rendering pipelines and design accessible UI components.",
+      "job_location": "San Francisco, CA",
+      "job_type": "Full-time",
+      "salary": "$200,000 - $230,000",
+      "status": "Applied",
+      "created_at": "2026-11-10",
+      "updated_at": "2026-11-10"
+    },
+    {
+      "id": "app_1794286344996_vlr1v",
+      "user_id": "usr_1794286344982_411an",
+      "company_id": "cmp_1794286344984_wdhf4",
+      "job_position": "Senior Frontend Engineer",
+      "application_date": "2026-10-13",
+      "interview_date": "2026-11-13",
+      "job_description": "Lead checkout UI performance and design system components in React and TypeScript.",
+      "job_location": "San Francisco, CA (Remote)",
+      "job_type": "Full-time",
+      "salary": "$180,000 - $210,000",
+      "status": "Interview",
+      "created_at": "2026-11-10",
+      "updated_at": "2026-11-10"
+    },
+    {
+      "id": "app_1794286345001_w8tqi",
+      "user_id": "usr_1794286344982_411an",
+      "company_id": "cmp_1794286344986_qihz9",
+      "job_position": "Full-Stack Product Engineer",
+      "application_date": "2026-10-17",
+      "job_description": "Build real-time synchronization features, offline caching, and desktop client modules.",
+      "job_location": "Remote",
+      "job_type": "Full-time",
+      "salary": "$175,000 - $200,000",
+      "status": "Selected",
+      "created_at": "2026-11-10",
+      "updated_at": "2026-11-10"
+    },
+    {
+      "id": "app_1794286345005_pd1q6",
+      "user_id": "usr_1794286344982_411an",
+      "company_id": "cmp_1794286344989_l5fn6",
+      "job_position": "Design Systems Architect",
+      "application_date": "2026-10-21",
+      "job_description": "Develop WebGL and canvas-based components and developer token bridges.",
+      "job_location": "San Francisco, CA",
+      "job_type": "Full-time",
+      "salary": "$190,000 - $225,000",
+      "status": "On Hold",
+      "on_hold_reason": "Company postponed recruitment due to Q4 headcount realignment.",
+      "created_at": "2026-11-10",
+      "updated_at": "2026-11-10"
+    },
+    {
+      "id": "app_1794286345010_1zokf",
+      "user_id": "usr_1794286344982_411an",
+      "company_id": "cmp_1794286344991_wgx0z",
+      "job_position": "Cloud Reliability Specialist",
+      "application_date": "2026-10-23",
+      "job_description": "Automate Kubernetes observability collectors and alerts for enterprise clusters.",
+      "job_location": "New York, NY",
+      "job_type": "Full-time",
+      "salary": "$165,000 - $185,000",
+      "status": "Rejected",
+      "created_at": "2026-11-10",
+      "updated_at": "2026-11-10"
+    },
+    {
+      "id": "app_1794286345014_sfm4v",
+      "user_id": "usr_1794286344982_411an",
+      "company_id": "cmp_1794286344993_zh2ff",
+      "job_position": "Staff Web Platform Engineer",
+      "application_date": "2026-10-31",
+      "job_description": "Modernize server-side rendering pipelines and design accessible UI components.",
+      "job_location": "San Francisco, CA",
+      "job_type": "Full-time",
+      "salary": "$200,000 - $230,000",
+      "status": "Applied",
+      "created_at": "2026-11-10",
+      "updated_at": "2026-11-10"
+    },
+    {
+      "id": "app_1794286358241_i1ttb",
+      "user_id": "usr_1794286358222_4wxj5",
+      "company_id": "cmp_1794286358225_e635w",
+      "job_position": "Senior Frontend Engineer",
+      "application_date": "2026-10-13",
+      "interview_date": "2026-11-13",
+      "job_description": "Lead checkout UI performance and design system components in React and TypeScript.",
+      "job_location": "San Francisco, CA (Remote)",
+      "job_type": "Full-time",
+      "salary": "$180,000 - $210,000",
+      "status": "Interview",
+      "created_at": "2026-11-10",
+      "updated_at": "2026-11-10"
+    },
+    {
+      "id": "app_1794286358246_er0j7",
+      "user_id": "usr_1794286358222_4wxj5",
+      "company_id": "cmp_1794286358227_bcv4o",
+      "job_position": "Full-Stack Product Engineer",
+      "application_date": "2026-10-17",
+      "job_description": "Build real-time synchronization features, offline caching, and desktop client modules.",
+      "job_location": "Remote",
+      "job_type": "Full-time",
+      "salary": "$175,000 - $200,000",
+      "status": "Selected",
+      "created_at": "2026-11-10",
+      "updated_at": "2026-11-10"
+    },
+    {
+      "id": "app_1794286358250_uguw6",
+      "user_id": "usr_1794286358222_4wxj5",
+      "company_id": "cmp_1794286358230_b78nx",
+      "job_position": "Design Systems Architect",
+      "application_date": "2026-10-21",
+      "job_description": "Develop WebGL and canvas-based components and developer token bridges.",
+      "job_location": "San Francisco, CA",
+      "job_type": "Full-time",
+      "salary": "$190,000 - $225,000",
+      "status": "On Hold",
+      "on_hold_reason": "Company postponed recruitment due to Q4 headcount realignment.",
+      "created_at": "2026-11-10",
+      "updated_at": "2026-11-10"
+    },
+    {
+      "id": "app_1794286358254_xyeeb",
+      "user_id": "usr_1794286358222_4wxj5",
+      "company_id": "cmp_1794286358232_6oif0",
+      "job_position": "Cloud Reliability Specialist",
+      "application_date": "2026-10-23",
+      "job_description": "Automate Kubernetes observability collectors and alerts for enterprise clusters.",
+      "job_location": "New York, NY",
+      "job_type": "Full-time",
+      "salary": "$165,000 - $185,000",
+      "status": "Rejected",
+      "created_at": "2026-11-10",
+      "updated_at": "2026-11-10"
+    },
+    {
+      "id": "app_1794286358259_makys",
+      "user_id": "usr_1794286358222_4wxj5",
+      "company_id": "cmp_1794286358234_wmzc0",
+      "job_position": "Staff Web Platform Engineer",
+      "application_date": "2026-10-31",
+      "job_description": "Modernize server-side rendering pipelines and design accessible UI components.",
+      "job_location": "San Francisco, CA",
+      "job_type": "Full-time",
+      "salary": "$200,000 - $230,000",
+      "status": "Applied",
+      "created_at": "2026-11-10",
+      "updated_at": "2026-11-10"
     }
   ],
   "status_history": [
+    {
+      "id": "hist_1794286358259_weah1",
+      "application_id": "app_1794286358259_makys",
+      "previous_status": "Initial",
+      "new_status": "Applied",
+      "reason": "Application recorded",
+      "changed_at": "2026-11-10 04:52:38"
+    },
+    {
+      "id": "hist_1794286358254_cuzor",
+      "application_id": "app_1794286358254_xyeeb",
+      "previous_status": "Initial",
+      "new_status": "Rejected",
+      "reason": "Application recorded",
+      "changed_at": "2026-11-10 04:52:38"
+    },
+    {
+      "id": "hist_1794286358250_d36r1",
+      "application_id": "app_1794286358250_uguw6",
+      "previous_status": "Initial",
+      "new_status": "On Hold",
+      "reason": "Application recorded",
+      "changed_at": "2026-11-10 04:52:38"
+    },
+    {
+      "id": "hist_1794286358246_wxuhv",
+      "application_id": "app_1794286358246_er0j7",
+      "previous_status": "Initial",
+      "new_status": "Selected",
+      "reason": "Application recorded",
+      "changed_at": "2026-11-10 04:52:38"
+    },
+    {
+      "id": "hist_1794286358241_yzgna",
+      "application_id": "app_1794286358241_i1ttb",
+      "previous_status": "Initial",
+      "new_status": "Interview",
+      "reason": "Application recorded",
+      "changed_at": "2026-11-10 04:52:38"
+    },
+    {
+      "id": "hist_1794286345014_j3nav",
+      "application_id": "app_1794286345014_sfm4v",
+      "previous_status": "Initial",
+      "new_status": "Applied",
+      "reason": "Application recorded",
+      "changed_at": "2026-11-10 04:52:25"
+    },
+    {
+      "id": "hist_1794286345010_tqko5",
+      "application_id": "app_1794286345010_1zokf",
+      "previous_status": "Initial",
+      "new_status": "Rejected",
+      "reason": "Application recorded",
+      "changed_at": "2026-11-10 04:52:25"
+    },
+    {
+      "id": "hist_1794286345005_jgfyt",
+      "application_id": "app_1794286345005_pd1q6",
+      "previous_status": "Initial",
+      "new_status": "On Hold",
+      "reason": "Application recorded",
+      "changed_at": "2026-11-10 04:52:25"
+    },
+    {
+      "id": "hist_1794286345001_xckpf",
+      "application_id": "app_1794286345001_w8tqi",
+      "previous_status": "Initial",
+      "new_status": "Selected",
+      "reason": "Application recorded",
+      "changed_at": "2026-11-10 04:52:25"
+    },
+    {
+      "id": "hist_1794286344996_jkmna",
+      "application_id": "app_1794286344996_vlr1v",
+      "previous_status": "Initial",
+      "new_status": "Interview",
+      "reason": "Application recorded",
+      "changed_at": "2026-11-10 04:52:24"
+    },
+    {
+      "id": "hist_1794286340791_4o8yj",
+      "application_id": "app_1794286340791_91cbm",
+      "previous_status": "Initial",
+      "new_status": "Applied",
+      "reason": "Application recorded",
+      "changed_at": "2026-11-10 04:52:20"
+    },
+    {
+      "id": "hist_1794286340786_lefcj",
+      "application_id": "app_1794286340786_ijov6",
+      "previous_status": "Initial",
+      "new_status": "Rejected",
+      "reason": "Application recorded",
+      "changed_at": "2026-11-10 04:52:20"
+    },
+    {
+      "id": "hist_1794286340782_x6qjy",
+      "application_id": "app_1794286340782_fk7li",
+      "previous_status": "Initial",
+      "new_status": "On Hold",
+      "reason": "Application recorded",
+      "changed_at": "2026-11-10 04:52:20"
+    },
+    {
+      "id": "hist_1794286340777_cv877",
+      "application_id": "app_1794286340777_4eb2d",
+      "previous_status": "Initial",
+      "new_status": "Selected",
+      "reason": "Application recorded",
+      "changed_at": "2026-11-10 04:52:20"
+    },
+    {
+      "id": "hist_1794286340773_7vouk",
+      "application_id": "app_1794286340772_t1kyd",
+      "previous_status": "Initial",
+      "new_status": "Interview",
+      "reason": "Application recorded",
+      "changed_at": "2026-11-10 04:52:20"
+    },
+    {
+      "id": "hist_1794286034810_lxbx0",
+      "application_id": "app_1794286034810_jf5mt",
+      "previous_status": "Initial",
+      "new_status": "Applied",
+      "reason": "Application recorded",
+      "changed_at": "2026-11-10 04:47:14"
+    },
+    {
+      "id": "hist_1794286034806_7d5uy",
+      "application_id": "app_1794286034806_i9rf5",
+      "previous_status": "Initial",
+      "new_status": "Rejected",
+      "reason": "Application recorded",
+      "changed_at": "2026-11-10 04:47:14"
+    },
+    {
+      "id": "hist_1794286034801_hgtre",
+      "application_id": "app_1794286034801_jlmss",
+      "previous_status": "Initial",
+      "new_status": "On Hold",
+      "reason": "Application recorded",
+      "changed_at": "2026-11-10 04:47:14"
+    },
+    {
+      "id": "hist_1794286034796_x5sv3",
+      "application_id": "app_1794286034796_vbfr2",
+      "previous_status": "Initial",
+      "new_status": "Selected",
+      "reason": "Application recorded",
+      "changed_at": "2026-11-10 04:47:14"
+    },
+    {
+      "id": "hist_1794286034792_c2wpr",
+      "application_id": "app_1794286034792_rmtgl",
+      "previous_status": "Initial",
+      "new_status": "Interview",
+      "reason": "Application recorded",
+      "changed_at": "2026-11-10 04:47:14"
+    },
     {
       "id": "hist_1794285287497_zzzfm",
       "application_id": "app_1794285287497_aqnbm",
@@ -487,6 +1207,56 @@
     }
   ],
   "notifications": [
+    {
+      "id": "notif_1794286358263_nqbtc",
+      "user_id": "usr_1794286358222_4wxj5",
+      "recipient_email": "aliasuser@example.com",
+      "subject": "Welcome to JobTrack! Your career tracker is ready",
+      "body": "Hello Aliasuser,\n\nYour JobTrack workspace is initialized with real-time status tracking, On Hold reasons, and resume vaults.",
+      "trigger_type": "test",
+      "sent_at": "2026-11-10 04:52:38",
+      "status": "delivered"
+    },
+    {
+      "id": "notif_1794286345019_7ynow",
+      "user_id": "usr_1794286344982_411an",
+      "recipient_email": "jordan.smith@example.com",
+      "subject": "Welcome to JobTrack! Your career tracker is ready",
+      "body": "Hello Jordan Smith,\n\nYour JobTrack workspace is initialized with real-time status tracking, On Hold reasons, and resume vaults.",
+      "trigger_type": "test",
+      "sent_at": "2026-11-10 04:52:25",
+      "status": "delivered"
+    },
+    {
+      "id": "notif_1794286340795_grzhh",
+      "user_id": "usr_1794286340758_bi36i",
+      "recipient_email": "alex.rivers@example.com",
+      "subject": "Welcome to JobTrack! Your career tracker is ready",
+      "body": "Hello Alex Rivers,\n\nYour JobTrack workspace is initialized with real-time status tracking, On Hold reasons, and resume vaults.",
+      "trigger_type": "test",
+      "sent_at": "2026-11-10 04:52:20",
+      "status": "delivered"
+    },
+    {
+      "id": "notif_1794286160354_yzl25",
+      "user_id": "usr_1794284872704_d7aji",
+      "recipient_email": "chsridevi434@gmail.com",
+      "subject": "🔔 Test Notification: JobTrack Email Delivery Active",
+      "body": "Hello sri,\n\nThis is a test notification confirming your JobTrack email alerting system is properly configured. You will receive automated alerts when application statuses change to Selected or Rejected, and reminders ahead of scheduled interviews.",
+      "trigger_type": "test",
+      "sent_at": "2026-11-10 04:49:20",
+      "status": "delivered"
+    },
+    {
+      "id": "notif_1794286034815_ikc5g",
+      "user_id": "usr_1794286034776_mtyqu",
+      "recipient_email": "newuser123@example.com",
+      "subject": "Welcome to JobTrack! Your career tracker is ready",
+      "body": "Hello Test User,\n\nYour JobTrack workspace is initialized with real-time status tracking, On Hold reasons, and resume vaults.",
+      "trigger_type": "test",
+      "sent_at": "2026-11-10 04:47:14",
+      "status": "delivered"
+    },
     {
       "id": "notif_1794285287502_83xv1",
       "user_id": "usr_1794284872704_d7aji",

@@ -30,8 +30,24 @@ async function apiRequest(endpoint, options = {}) {
   });
 
   if (!response.ok) {
-    const errorData = await response.json().catch(() => ({ detail: 'Network request failed' }));
-    throw new Error(errorData.detail || errorData.error || `HTTP error ${response.status}`);
+    let msg = '';
+    try {
+      const errorData = await response.json();
+      msg = errorData.detail || errorData.error || errorData.message || '';
+    } catch {
+      // ignore
+    }
+
+    if (!msg || /request failed|network request failed|failed to fetch/i.test(msg)) {
+      if (response.status === 400) {
+        msg = 'Please verify that your details are filled out correctly.';
+      } else if (response.status === 401) {
+        msg = 'Invalid credentials. Please verify your email and password.';
+      } else {
+        msg = 'Unable to complete request right now. Please try again.';
+      }
+    }
+    throw new Error(msg);
   }
 
   return response.json();

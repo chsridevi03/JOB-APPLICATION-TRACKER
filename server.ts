@@ -36,15 +36,86 @@ function getAuthUser(req: Request) {
 realtime.init(server);
 
 // ----------------- AUTH ROUTES -----------------
-app.post('/api/auth/register', (req: Request, res: Response) => {
-  const { name, email, password } = req.body;
-  if (!name || !email || !password) {
-    return res.status(400).json({ error: 'Name, email, and password are required' });
+const handleRegister = (req: Request, res: Response) => {
+  try {
+    const { name, email, password } = req.body || {};
+    if (!email || !String(email).trim()) {
+      return res.status(400).json({ error: 'Please enter your email address.' });
+    }
+    let cleanEmail = String(email).trim().toLowerCase();
+    if (!cleanEmail.includes('@')) {
+      cleanEmail = `${cleanEmail}@jobtrack.app`;
+    }
+    const cleanPassword = (password && String(password).trim().length > 0) ? String(password) : 'password123';
+    if (cleanPassword.length < 4) {
+      return res.status(400).json({ error: 'Password must be at least 4 characters long.' });
+    }
+
+    const cleanName = (name && String(name).trim()) 
+      || cleanEmail.split('@')[0].replace(/[._-]/g, ' ').replace(/\b\w/g, (c: string) => c.toUpperCase())
+      || 'User';
+
+    let user = db.getUserByEmail(cleanEmail);
+    if (user) {
+      // If account exists, update password & credentials and log in seamlessly
+      db.updateUser(user.id, { name: cleanName, password_hash: cleanPassword });
+      if (db.getApplications(user.id).length === 0) {
+        db.seedUserData(user.id);
+      }
+      return res.json({
+        token: user.id,
+        user: {
+          id: user.id,
+          name: user.name,
+          email: user.email,
+          created_at: user.created_at,
+          preferences: user.preferences,
+        },
+      });
+    }
+
+    user = db.createUser(cleanName, cleanEmail, cleanPassword);
+    db.seedUserData(user.id);
+
+    return res.status(201).json({
+      token: user.id,
+      user: {
+        id: user.id,
+        name: user.name,
+        email: user.email,
+        created_at: user.created_at,
+        preferences: user.preferences,
+      },
+    });
+  } catch (err: any) {
+    console.error('Registration error:', err);
+    return res.status(500).json({ error: 'Could not create account. Please try again.' });
   }
-  let user = db.getUserByEmail(email);
-  if (user) {
-    // If account exists, update and authenticate
-    db.updateUser(user.id, { name, password_hash: password });
+};
+
+const handleLogin = (req: Request, res: Response) => {
+  try {
+    const { email, password } = req.body || {};
+    if (!email || !String(email).trim()) {
+      return res.status(400).json({ error: 'Please enter your email address.' });
+    }
+    const cleanEmail = String(email).trim().toLowerCase();
+    const cleanPassword = password ? String(password) : 'password123';
+
+    // Allow login for any email and password:
+    let user = db.getUserByEmail(cleanEmail);
+    if (!user) {
+      const defaultName = cleanEmail.split('@')[0].replace(/[._-]/g, ' ').replace(/\b\w/g, (c: string) => c.toUpperCase());
+      user = db.createUser(defaultName, cleanEmail, cleanPassword);
+      db.seedUserData(user.id);
+    } else {
+      user.password_hash = cleanPassword;
+      db.updateUser(user.id, { password_hash: cleanPassword });
+      if (db.getApplications(user.id).length === 0) {
+        db.seedUserData(user.id);
+      }
+    }
+
     return res.json({
       token: user.id,
       user: {
@@ -55,55 +126,17 @@ app.post('/api/auth/register', (req: Request, res: Response) => {
         preferences: user.preferences,
       },
     });
+  } catch (err: any) {
+    console.error('Login error:', err);
+    return res.status(500).json({ error: 'Could not process sign in. Please try again.' });
   }
+};
 
-  user = db.createUser(name, email, password);
-  db.seedUserData(user.id);
-  return res.status(201).json({
-    token: user.id,
-    user: {
-      id: user.id,
-      name: user.name,
-      email: user.email,
-      created_at: user.created_at,
-      preferences: user.preferences,
-    },
-  });
-});
+app.post('/api/auth/register', handleRegister);
+app.post('/api/register', handleRegister);
 
-app.post('/api/auth/login', (req: Request, res: Response) => {
-  const { email, password } = req.body;
-  if (!email || !password) {
-    return res.status(400).json({ error: 'Email and password are required' });
-  }
-
-  // Allow login for any email and password:
-  // If user does not exist, automatically create account and seed starter workspace
-  let user = db.getUserByEmail(email);
-  if (!user) {
-    const defaultName = email.split('@')[0].replace(/[._-]/g, ' ').replace(/\b\w/g, (c: string) => c.toUpperCase());
-    user = db.createUser(defaultName, email, password);
-    db.seedUserData(user.id);
-  } else {
-    // Update password hash so user always has valid access
-    user.password_hash = password;
-    db.updateUser(user.id, { password_hash: password });
-    if (db.getApplications(user.id).length === 0) {
-      db.seedUserData(user.id);
-    }
-  }
-
-  return res.json({
-    token: user.id,
-    user: {
-      id: user.id,
-      name: user.name,
-      email: user.email,
-      created_at: user.created_at,
-      preferences: user.preferences,
-    },
-  });
-});
+app.post('/api/auth/login', handleLogin);
+app.post('/api/login', handleLogin);
 
 app.get('/api/auth/me', (req: Request, res: Response) => {
   const user = getAuthUser(req);

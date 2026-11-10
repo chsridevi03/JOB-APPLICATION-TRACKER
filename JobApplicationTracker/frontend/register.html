@@ -22,8 +22,8 @@
 
     <form id="registerForm">
       <div class="mb-3">
-        <label class="form-label small fw-semibold">Full Name</label>
-        <input type="text" id="name" class="form-control form-control-sm" required placeholder="Sarah Connor">
+        <label class="form-label small fw-semibold">Full Name <span class="text-muted fw-normal">(Optional)</span></label>
+        <input type="text" id="name" class="form-control form-control-sm" placeholder="Sarah Connor">
       </div>
       <div class="mb-3">
         <label class="form-label small fw-semibold">Email Address</label>
@@ -31,11 +31,11 @@
       </div>
       <div class="mb-3">
         <label class="form-label small fw-semibold">Password</label>
-        <input type="password" id="password" class="form-control form-control-sm" required placeholder="••••••••" minlength="6">
+        <input type="password" id="password" class="form-control form-control-sm" required placeholder="••••••••" minlength="4">
       </div>
       <div class="mb-3">
         <label class="form-label small fw-semibold">Confirm Password</label>
-        <input type="password" id="confirmPassword" class="form-control form-control-sm" required placeholder="••••••••" minlength="6">
+        <input type="password" id="confirmPassword" class="form-control form-control-sm" required placeholder="••••••••" minlength="4">
       </div>
       <button type="submit" class="btn btn-primary w-100 btn-sm py-2 fw-semibold mb-3">Register Account</button>
     </form>
@@ -56,8 +56,20 @@
       const password = document.getElementById('password').value;
       const confirmPassword = document.getElementById('confirmPassword').value;
 
+      if (!email.trim() || !email.includes('@')) {
+        errBox.textContent = 'Please enter a valid email address with an @ symbol.';
+        errBox.classList.remove('d-none');
+        return;
+      }
+
+      if (password.length < 4) {
+        errBox.textContent = 'Password must be at least 4 characters long.';
+        errBox.classList.remove('d-none');
+        return;
+      }
+
       if (password !== confirmPassword) {
-        errBox.textContent = 'Passwords do not match.';
+        errBox.textContent = 'Passwords do not match. Please ensure both passwords match.';
         errBox.classList.remove('d-none');
         return;
       }
@@ -65,12 +77,20 @@
       try {
         const res = await apiRequest('/register', {
           method: 'POST',
-          body: JSON.stringify({ name, email, password })
+          body: JSON.stringify({ 
+            name: name.trim() || email.split('@')[0], 
+            email: email.trim(), 
+            password 
+          })
         });
         Auth.setToken(res.token);
         window.location.href = 'dashboard.html';
       } catch (err) {
-        errBox.textContent = err.message;
+        let msg = err.message || '';
+        if (!msg || /request failed|network/i.test(msg)) {
+          msg = 'Unable to create account right now. Please verify your details or log in directly.';
+        }
+        errBox.textContent = msg;
         errBox.classList.remove('d-none');
       }
     });

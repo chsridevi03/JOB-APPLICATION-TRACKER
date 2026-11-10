@@ -29,22 +29,51 @@ export const authStorage = {
 };
 
 async function request<T>(path: string, options: RequestInit = {}): Promise<T> {
-  const token = authStorage.getToken() || 'usr_demo_101';
+  const token = authStorage.getToken();
   const headers = new Headers(options.headers || {});
   headers.set('Content-Type', 'application/json');
-  if (token) {
+  if (token && !path.startsWith('/auth/register') && !path.startsWith('/auth/login')) {
     headers.set('Authorization', `Bearer ${token}`);
     headers.set('x-user-id', token);
   }
 
-  const res = await fetch(`/api${path}`, {
-    ...options,
-    headers,
-  });
+  let res: Response;
+  try {
+    res = await fetch(`/api${path}`, {
+      ...options,
+      headers,
+    });
+  } catch {
+    throw new Error('Unable to connect to the server. Please check your network connection.');
+  }
 
   if (!res.ok) {
-    const errorData = await res.json().catch(() => ({ error: 'Request failed' }));
-    throw new Error(errorData.error || `HTTP error ${res.status}`);
+    let errorMsg = '';
+    try {
+      const errorData = await res.json();
+      errorMsg = errorData.error || errorData.detail || errorData.message || '';
+    } catch {
+      try {
+        const text = await res.text();
+        if (text && text.length < 150 && !text.includes('<!DOCTYPE')) {
+          errorMsg = text;
+        }
+      } catch {}
+    }
+
+    if (!errorMsg || errorMsg.toLowerCase().includes('request failed')) {
+      if (res.status === 400) {
+        errorMsg = 'Please verify that all fields are filled out correctly.';
+      } else if (res.status === 401) {
+        errorMsg = 'Invalid email or password.';
+      } else if (res.status === 404) {
+        errorMsg = 'The requested resource was not found.';
+      } else {
+        errorMsg = 'Unable to complete action. Please try again.';
+      }
+    }
+
+    throw new Error(errorMsg);
   }
 
   return res.json();
@@ -52,17 +81,22 @@ async function request<T>(path: string, options: RequestInit = {}): Promise<T> {
 
 export const api = {
   // Auth
-  register: (name: string, email: string, password: string) =>
-    request<{ token: string; user: User }>('/auth/register', {
+  register: (name: string, email: string, password: string) => {
+    const cleanEmail = email.trim().toLowerCase();
+    const cleanName = name.trim() || cleanEmail.split('@')[0] || 'User';
+    return request<{ token: string; user: User }>('/auth/register', {
       method: 'POST',
-      body: JSON.stringify({ name, email, password }),
-    }),
+      body: JSON.stringify({ name: cleanName, email: cleanEmail, password }),
+    });
+  },
 
-  login: (email: string, password: string) =>
-    request<{ token: string; user: User }>('/auth/login', {
+  login: (email: string, password: string) => {
+    const cleanEmail = email.trim().toLowerCase();
+    return request<{ token: string; user: User }>('/auth/login', {
       method: 'POST',
-      body: JSON.stringify({ email, password }),
-    }),
+      body: JSON.stringify({ email: cleanEmail, password }),
+    });
+  },
 
   getCurrentUser: () => request<{ user: User }>('/auth/me'),
 
