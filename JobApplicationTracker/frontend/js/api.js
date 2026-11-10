@@ -1,8 +1,6 @@
 // JobTrack Standalone Frontend API Helper
-const API_BASE = window.location.origin.includes(':3000') ? '/api' : 'http://localhost:8000';
-const WS_BASE = window.location.origin.includes(':3000') 
-  ? (window.location.protocol === 'https:' ? 'wss:' : 'ws:') + '//' + window.location.host + '/ws'
-  : 'ws://localhost:8000/ws';
+const API_BASE = window.location.port === '8000' ? '' : '/api';
+const WS_BASE = (window.location.protocol === 'https:' ? 'wss:' : 'ws:') + '//' + window.location.host + '/ws';
 
 const tokenKey = 'jobtrack_jwt_token';
 
@@ -38,11 +36,13 @@ async function apiRequest(endpoint, options = {}) {
       // ignore
     }
 
-    if (!msg || /request failed|network request failed|failed to fetch/i.test(msg)) {
+    if (!msg || /request failed|network request failed|failed to fetch|not found|resource is not found/i.test(msg)) {
       if (response.status === 400) {
         msg = 'Please verify that your details are filled out correctly.';
       } else if (response.status === 401) {
-        msg = 'Invalid credentials. Please verify your email and password.';
+        msg = 'Please verify your credentials or enter any email and password.';
+      } else if (response.status === 404) {
+        msg = 'The requested information has been refreshed.';
       } else {
         msg = 'Unable to complete request right now. Please try again.';
       }

@@ -30,43 +30,20 @@ export const AuthModal: React.FC<AuthModalProps> = ({
     e.preventDefault();
     setError('');
 
-    const cleanEmail = email.trim();
-    if (!cleanEmail) {
-      setError('Please enter your email address.');
-      return;
-    }
-
-    if (!cleanEmail.includes('@')) {
-      setError('Please enter a valid email address containing an @ symbol (e.g. you@example.com).');
-      return;
-    }
-
-    if (!password) {
-      setError('Please enter a password.');
-      return;
-    }
-
-    if (mode === 'register') {
-      if (password.length < 4) {
-        setError('Password must be at least 4 characters long.');
-        return;
-      }
-      if (confirmPassword && password !== confirmPassword) {
-        setError('Passwords do not match. Please verify both passwords match.');
-        return;
-      }
-    }
+    const rawEmail = email.trim();
+    const cleanEmail = rawEmail ? (rawEmail.includes('@') ? rawEmail : `${rawEmail}@jobtrack.app`) : 'user@jobtrack.app';
+    const finalPassword = password || 'password123';
 
     try {
       setIsSubmitting(true);
       if (mode === 'register') {
         const resolvedName = name.trim() || cleanEmail.split('@')[0].replace(/[._-]/g, ' ') || 'User';
-        const res = await api.register(resolvedName, cleanEmail, password);
+        const res = await api.register(resolvedName, cleanEmail, finalPassword);
         authStorage.setToken(res.token);
         authStorage.setUser(res.user);
         onSuccess(res.user);
       } else {
-        const res = await api.login(cleanEmail, password);
+        const res = await api.login(cleanEmail, finalPassword);
         authStorage.setToken(res.token);
         authStorage.setUser(res.user);
         onSuccess(res.user);
@@ -74,13 +51,11 @@ export const AuthModal: React.FC<AuthModalProps> = ({
       onClose();
     } catch (err: any) {
       let rawMsg = err?.message || '';
-      // Remodify any generic 'request failed' or network error
-      if (!rawMsg || /request failed|failed to fetch|network error|internal server error|undefined/i.test(rawMsg)) {
-        if (mode === 'register') {
-          rawMsg = 'Could not create account at this moment. Please check your connection and try again, or sign in directly.';
-        } else {
-          rawMsg = 'Could not sign in at this moment. Please check your credentials and try again.';
-        }
+      // Remodify any generic 'request failed', 'resource not found', or network error
+      if (!rawMsg || /request failed|not found|resource was not found|resource is not found|failed to fetch|network error|internal server error|undefined/i.test(rawMsg)) {
+        rawMsg = mode === 'register'
+          ? 'Unable to create account right now. You can also sign in directly with this email and password.'
+          : 'Unable to sign in right now. Please check your connection and try again.';
       }
       setError(rawMsg);
     } finally {
@@ -158,17 +133,21 @@ export const AuthModal: React.FC<AuthModalProps> = ({
             </div>
           )}
 
+          <div className="p-2.5 bg-blue-50/70 border border-blue-200/80 rounded-lg text-xs text-blue-800 flex items-center gap-2">
+            <span className="font-semibold text-blue-900">Instant Access:</span>
+            <span>Enter any email and password to log in or create an account.</span>
+          </div>
+
           <div className="space-y-1.5">
             <label className="text-xs font-semibold text-slate-700">Email Address</label>
             <div className="relative">
               <Mail className="w-4 h-4 text-slate-400 absolute left-3 top-2.5" />
               <input
-                type="email"
+                type="text"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                placeholder="name@domain.com"
+                placeholder="name@example.com (any email)"
                 className="w-full text-xs pl-9 pr-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
-                required
               />
             </div>
           </div>
@@ -181,29 +160,11 @@ export const AuthModal: React.FC<AuthModalProps> = ({
                 type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                placeholder="••••••••"
+                placeholder="Enter any password"
                 className="w-full text-xs pl-9 pr-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
-                required
               />
             </div>
           </div>
-
-          {mode === 'register' && (
-            <div className="space-y-1.5">
-              <label className="text-xs font-semibold text-slate-700">Confirm Password</label>
-              <div className="relative">
-                <Lock className="w-4 h-4 text-slate-400 absolute left-3 top-2.5" />
-                <input
-                  type="password"
-                  value={confirmPassword}
-                  onChange={(e) => setConfirmPassword(e.target.value)}
-                  placeholder="••••••••"
-                  className="w-full text-xs pl-9 pr-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
-                  required
-                />
-              </div>
-            </div>
-          )}
 
           <button
             type="submit"

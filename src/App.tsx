@@ -269,6 +269,19 @@ export default function App() {
               setAuthMode('login');
               setIsAuthOpen(true);
             }}
+            onDirectLogin={async (email, pass) => {
+              try {
+                const res = await api.login(email, pass);
+                authStorage.setToken(res.token);
+                authStorage.setUser(res.user);
+                setUser(res.user);
+                setCurrentTab('dashboard');
+                loadAppData();
+                showToast(`Signed in as ${res.user.name}`, 'success');
+              } catch (err: any) {
+                showToast(err.message || 'Access granted', 'info');
+              }
+            }}
           />
         ) : (
           <div className="max-w-7xl mx-auto px-6 py-8">

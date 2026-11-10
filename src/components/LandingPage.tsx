@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   Briefcase,
   CheckCircle2,
@@ -10,17 +10,39 @@ import {
   Paperclip,
   FileText,
   AlertTriangle,
+  Mail,
+  Lock,
 } from 'lucide-react';
 
 interface LandingPageProps {
   onGetStarted: () => void;
   onLogin: () => void;
+  onDirectLogin?: (email: string, password: string) => void;
 }
 
 export const LandingPage: React.FC<LandingPageProps> = ({
   onGetStarted,
   onLogin,
+  onDirectLogin,
 }) => {
+  const [quickEmail, setQuickEmail] = useState<string>('chsridevi434@gmail.com');
+  const [quickPassword, setQuickPassword] = useState<string>('password123');
+  const [isAccessing, setIsAccessing] = useState<boolean>(false);
+
+  const handleQuickSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (onDirectLogin) {
+      setIsAccessing(true);
+      try {
+        await onDirectLogin(quickEmail, quickPassword);
+      } finally {
+        setIsAccessing(false);
+      }
+    } else {
+      onLogin();
+    }
+  };
+
   return (
     <div className="min-h-screen bg-slate-50 flex flex-col justify-between">
       {/* Landing Top Header */}
@@ -57,8 +79,8 @@ export const LandingPage: React.FC<LandingPageProps> = ({
       </header>
 
       {/* Hero Section */}
-      <main className="flex-1 max-w-7xl mx-auto px-6 py-16 flex flex-col items-center text-center">
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-medium bg-blue-50 text-blue-700 border border-blue-200 mb-6">
+      <main className="flex-1 max-w-7xl mx-auto px-6 py-14 flex flex-col items-center text-center">
+        <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full text-xs font-medium bg-blue-50 text-blue-700 border border-blue-200 mb-6">
           <Zap className="w-3.5 h-3.5" />
           <span>Real-time Full-Stack Job Application Tracker</span>
         </div>
@@ -71,19 +93,71 @@ export const LandingPage: React.FC<LandingPageProps> = ({
           Record every application sent to employers, monitor status progression live, log mandatory On Hold reasons, attach tailored resumes, and receive instant email notifications when offers arrive.
         </p>
 
-        <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
-          <button
-            onClick={onLogin}
-            className="px-6 py-3 text-xs font-bold text-white bg-blue-600 hover:bg-blue-700 rounded-xl shadow-md hover:shadow-lg transition-all flex items-center gap-2"
-          >
-            <span>Sign In to Your Tracker</span>
-            <ArrowRight className="w-4 h-4" />
+        {/* Quick Access Card for Any Email & Password */}
+        <div className="mt-8 w-full max-w-xl bg-white border border-slate-200 shadow-lg rounded-2xl p-5 text-left">
+          <div className="flex items-center justify-between pb-3 border-b border-slate-100 mb-4">
+            <div className="flex items-center gap-2">
+              <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
+              <span className="text-xs font-bold text-slate-900">Instant Access for Any Email & Password</span>
+            </div>
+            <span className="text-[11px] text-slate-400 font-medium">Zero Setup Required</span>
+          </div>
+
+          <form onSubmit={handleQuickSubmit} className="space-y-3">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <div>
+                <label className="text-[11px] font-semibold text-slate-600 mb-1 block">Email Address</label>
+                <div className="relative">
+                  <Mail className="w-4 h-4 text-slate-400 absolute left-3 top-2.5" />
+                  <input
+                    type="text"
+                    value={quickEmail}
+                    onChange={(e) => setQuickEmail(e.target.value)}
+                    placeholder="Enter any email"
+                    className="w-full text-xs pl-9 pr-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                  />
+                </div>
+              </div>
+
+              <div>
+                <label className="text-[11px] font-semibold text-slate-600 mb-1 block">Password</label>
+                <div className="relative">
+                  <Lock className="w-4 h-4 text-slate-400 absolute left-3 top-2.5" />
+                  <input
+                    type="password"
+                    value={quickPassword}
+                    onChange={(e) => setQuickPassword(e.target.value)}
+                    placeholder="Enter any password"
+                    className="w-full text-xs pl-9 pr-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div className="flex flex-wrap items-center justify-between gap-3 pt-1">
+              <span className="text-[11px] text-slate-500">
+                Log in or create a new workspace automatically.
+              </span>
+              <button
+                type="submit"
+                disabled={isAccessing}
+                className="px-5 py-2 text-xs font-bold text-white bg-blue-600 hover:bg-blue-700 rounded-lg shadow-xs transition-colors flex items-center gap-1.5"
+              >
+                <span>{isAccessing ? 'Accessing...' : 'Enter Dashboard'}</span>
+                <ArrowRight className="w-3.5 h-3.5" />
+              </button>
+            </div>
+          </form>
+        </div>
+
+        <div className="mt-4 flex items-center gap-4 text-xs text-slate-500">
+          <span>Or open standard modal:</span>
+          <button onClick={onLogin} className="text-blue-600 hover:text-blue-800 font-semibold underline">
+            Sign In Modal
           </button>
-          <button
-            onClick={onGetStarted}
-            className="px-6 py-3 text-xs font-bold text-slate-800 bg-white hover:bg-slate-100 border border-slate-300 rounded-xl shadow-xs transition-colors"
-          >
-            Create Free Account
+          <span>·</span>
+          <button onClick={onGetStarted} className="text-blue-600 hover:text-blue-800 font-semibold underline">
+            Create Account Modal
           </button>
         </div>
 
